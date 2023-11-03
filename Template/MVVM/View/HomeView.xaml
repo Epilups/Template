@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="Template.MVVM.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Template.MVVM.ViewModel"
+             xmlns:local="clr-namespace:Template.Core"
+             mc:Ignorable="d"
+             d:DesignHeight="505" d:DesignWidth="700">
+
+    <UserControl.DataContext>
+        <vm:HomeViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <Style x:Key="NavigationButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF5C4190" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Margin" Value="0 0 10 0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+    </UserControl.Resources>
+
+    <Grid Background="#272537">
+
+        <StackPanel Margin="10">
+
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        Margin="10" Height="39">
+
+                <Button Content="←" 
+                        FontSize="25"
+                        Command="{Binding PreviousMonthCommand}" 
+                        Style="{StaticResource NavigationButtonStyle}" 
+                        Margin="0 0 10 0" Width="65" />
+
+                <TextBlock Text="{Binding CurrentMonth}" 
+                           FontSize="20" 
+                           FontWeight="Bold" 
+                           Foreground="White" 
+                           Height="27" />
+
+                <Button Content="→" 
+                        FontSize="25" 
+                        Command="{Binding NextMonthCommand}" 
+                        Style="{StaticResource NavigationButtonStyle}" 
+                        Margin="10 0 0 0" 
+                        Width="65" 
+                        Height="37" />
+                
+            </StackPanel>
+            <StackPanel TextBlock.FontFamily="/Fonts/#Poppins"
+                        Orientation="Horizontal" 
+                        Width="651">
+                <Label HorizontalContentAlignment="Center" Foreground="White" Width="73" Content="Su"/>
+                <Label HorizontalContentAlignment="Center" Foreground="White" Width="117" Content="Mo"/>
+                <Label HorizontalContentAlignment="Center" Foreground="White" Width="77" Content="Tu"/>
+                <Label HorizontalContentAlignment="Center" Foreground="White" Width="118" Content="We"/>
+                <Label HorizontalContentAlignment="Center" Foreground="White" Width="75" Content="Th"/>
+                <Label HorizontalContentAlignment="Center" Foreground="White" Width="119" Content="Fr"/>
+                <Label HorizontalContentAlignment="Center" Foreground="White" Width="73" Content="Sa"/>
+            </StackPanel>
+
+            <ItemsControl ItemsSource="{Binding CalendarDays}">
+
+                <ItemsControl.ItemsPanel>
+
+                    <ItemsPanelTemplate>
+
+                        <UniformGrid Columns="7"
+                                     Margin="1"/>
+                    </ItemsPanelTemplate>
+
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+                        <Border MouseLeftButtonUp="CalendarDayClicked"
+                                Background="#FF5C4190"
+                                BorderThickness="1"
+                                CornerRadius="5">
+
+                            <Grid Width="50" Height="50">
+
+                                <TextBlock Text="{Binding Day}" 
+                                           VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center"
+                                           Foreground="White"
+                                           FontSize="18"/>
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+           
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    Margin="104,411,104,10">
+
+            <Border Height="84"
+                    Background="MediumPurple"
+                    CornerRadius="5">
+
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    
+                    <TextBlock x:Name="dataTextBlock"
+                           Margin="5"
+                           FontSize="12"
+                           FontFamily="/Fonts/#Poppins"
+                           Foreground="White"
+                           TextWrapping="Wrap"/>
+                    
+                </ScrollViewer>
+                
+
+                
+
+            </Border>
+
+        </StackPanel>
+    </Grid>
+</UserControl>
